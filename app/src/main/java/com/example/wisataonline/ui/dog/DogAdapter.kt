@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.wisataonline.R
 import com.example.wisataonline.data.response.DogResponseItem
 import com.example.wisataonline.databinding.RowItemListBinding
 
-class DogAdapter : RecyclerView.Adapter<DogAdapter.MyDogHolder>() {
-
-    private var listDog = ArrayList<DogResponseItem>()
+class DogAdapter(private val listDog: List<DogResponseItem>) :
+    RecyclerView.Adapter<DogAdapter.MyDogHolder>() {
 
     inner class MyDogHolder(val binding: RowItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -20,7 +20,12 @@ class DogAdapter : RecyclerView.Adapter<DogAdapter.MyDogHolder>() {
     override fun onBindViewHolder(holder: MyDogHolder, position: Int) {
         val dataDog = listDog[position]
 
-        holder.binding.apply { Glide.with(imgList).load(dataDog.url).into(imgList) }
+        holder.binding.apply {
+            Glide.with(imgList.context)
+                .load(dataDog.url)
+                .placeholder(R.drawable.dog_active)
+                .into(imgList)
+        }
     }
 
     override fun getItemCount(): Int = listDog.size

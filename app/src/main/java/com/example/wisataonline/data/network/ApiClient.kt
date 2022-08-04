@@ -1,6 +1,7 @@
 package com.example.wisataonline.data.network
 
 import androidx.viewbinding.BuildConfig
+import com.example.wisataonline.BuildConfig.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -32,7 +33,7 @@ class ApiClient {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("https://62e9c4d101787ec7121c1fe2.mockapi.io/v1/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .client(okHttpClient)

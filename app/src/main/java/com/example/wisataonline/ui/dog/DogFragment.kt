@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.wisataonline.data.response.DogResponseItem
 import com.example.wisataonline.databinding.FragmentDogBinding
 import com.example.wisataonline.ui.AnimalViewModel
 
@@ -32,16 +33,23 @@ class DogFragment : Fragment() {
 
         _viewModel = activity?.let { ViewModelProvider(it) }?.get(AnimalViewModel::class.java)
 
-        binding.apply {
-            rvDog.layoutManager = GridLayoutManager(activity, 2)
-            rvDog.adapter = DogAdapter()
-        }
-
         viewModel.apply {
-            getDataCatAndDog()
-            dogResponse.observe(viewLifecycleOwner) { DogAdapter() }
+            getDataDog()
+            dogResponse.observe(viewLifecycleOwner) {
+                showData(it)
+            }
             isLoading.observe(viewLifecycleOwner) { showLoading(it) }
             isError.observe(viewLifecycleOwner) { showError(it) }
+        }
+    }
+
+    private fun showData(data: List<DogResponseItem>?) {
+        binding.apply {
+            data?.let {
+                rvDog.setHasFixedSize(true)
+                rvDog.layoutManager = GridLayoutManager(activity, 2)
+                rvDog.adapter = DogAdapter(data)
+            }
         }
     }
 

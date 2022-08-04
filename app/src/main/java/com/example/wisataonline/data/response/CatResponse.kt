@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 data class CatResponse(
 
     @field:SerializedName("CatResponse")
-    val catResponse: List<CatResponseItem?>? = null
+    val catResponse: List<CatResponseItem>? = null
 ) : Parcelable
 
 @Parcelize

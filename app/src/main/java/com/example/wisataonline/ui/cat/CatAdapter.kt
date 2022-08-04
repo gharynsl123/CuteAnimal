@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.wisataonline.R
 import com.example.wisataonline.data.CatResponseItem
 import com.example.wisataonline.databinding.RowItemListBinding
 
-class CatAdapter : RecyclerView.Adapter<CatAdapter.MyCatHolder>() {
+class CatAdapter(private val listCat: List<CatResponseItem>) :
+    RecyclerView.Adapter<CatAdapter.MyCatHolder>() {
 
-    private var listCat = ArrayList<CatResponseItem>()
 
     class MyCatHolder(val binding: RowItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -20,7 +21,12 @@ class CatAdapter : RecyclerView.Adapter<CatAdapter.MyCatHolder>() {
 
     override fun onBindViewHolder(holder: MyCatHolder, position: Int) {
         val dataCat = listCat[position]
-        holder.binding.apply { Glide.with(imgList).load(dataCat.url).into(imgList) }
+        holder.binding.apply {
+            Glide.with(imgList)
+                .load(dataCat.url)
+                .placeholder(R.drawable.cat_active)
+                .into(imgList)
+        }
     }
 
     override fun getItemCount(): Int = listCat.size
